@@ -1,0 +1,56 @@
+﻿@model IEnumerable<LMS.Models.Issue>
+
+@{
+    ViewBag.Title = "Give books";
+}
+
+<h2>Give the issued books to the student</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Issue_Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Taken)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Member.AustId)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        if (item.Return_Status.Equals("false") && item.Taken.Equals("false"))
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Issue_Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Taken)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Member.AustId)
+            </td>
+            <td>
+                @if (Session["AdminId"] != null)
+                {
+
+                    @Html.ActionLink("Give", "Give", "Home", new { id = item.Issue_Id }, null)
+                }
+            </td>
+        </tr>
+        }
+
+    }
+
+</table>

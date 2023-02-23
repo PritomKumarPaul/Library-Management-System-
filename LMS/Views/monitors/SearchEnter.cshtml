@@ -1,0 +1,77 @@
+﻿@model IEnumerable<LMS.Models.Member>
+
+@{
+    ViewBag.Title = "Record Entry";
+}
+@using LMS.Models;
+<br /><br />
+
+@using (Html.BeginForm("SearchEnter", "monitors", FormMethod.Get))
+{
+    @Html.TextBox("search")<input type="submit" value="Search" />
+}
+
+<h2>SearchEnter</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AustId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone_Number)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JoiningDate)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        LMSEntities4 db = new LMSEntities4();
+        int count = db.monitors.Where(x => x.Member_Id == item.Id && x.Exit_Time.Equals(null)).Count();
+        if (count == 0)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AustId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Password)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone_Number)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.JoiningDate)
+                </td>
+                <td>
+                    @Html.ActionLink("Add", "Add", new { id = item.Id }, null)
+                </td>
+            </tr>
+        }
+    }
+
+</table>

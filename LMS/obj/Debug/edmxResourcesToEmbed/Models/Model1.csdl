@@ -1,0 +1,231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="AdminId" />
+    </Key>
+    <Property Name="AdminId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AdminName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Approves" Relationship="Self.FK__Approves__Admin___60A75C0F" FromRole="Admin" ToRole="Approves" />
+    <NavigationProperty Name="Books" Relationship="Self.FK__Books__Issue_Adm__3B75D760" FromRole="Admin" ToRole="Books" />
+    <NavigationProperty Name="Reutrns" Relationship="Self.FK__Reutrn__Admin_Id__66603565" FromRole="Admin" ToRole="Reutrn" />
+    <NavigationProperty Name="monitors" Relationship="LMSModel.FK__monitor__Admin_I__6C190EBB" FromRole="Admin" ToRole="monitor" />
+  </EntityType>
+  <EntityType Name="Approve">
+    <Key>
+      <PropertyRef Name="Approve_Id" />
+    </Key>
+    <Property Name="Approve_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Approve_Time" Type="DateTime" Precision="0" />
+    <Property Name="Admin_Id" Type="Int32" />
+    <Property Name="Issue_Id" Type="Int32" />
+    <NavigationProperty Name="Admin" Relationship="Self.FK__Approves__Admin___60A75C0F" FromRole="Approves" ToRole="Admin" />
+    <NavigationProperty Name="Issue" Relationship="Self.FK__Approves__Issue___619B8048" FromRole="Approves" ToRole="Issues" />
+  </EntityType>
+  <EntityType Name="Book">
+    <Key>
+      <PropertyRef Name="Book_Id" />
+    </Key>
+    <Property Name="Book_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Price" Type="Int32" />
+    <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Number_of_Copies" Type="Int32" />
+    <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Issue_Admin_Id" Type="Int32" />
+    <Property Name="Arrival_Date" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Admin" Relationship="Self.FK__Books__Issue_Adm__3B75D760" FromRole="Books" ToRole="Admin" />
+  </EntityType>
+  <EntityType Name="Issue">
+    <Key>
+      <PropertyRef Name="Issue_Id" />
+    </Key>
+    <Property Name="Issue_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Id" Type="Int32" />
+    <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Issue_Date" Type="DateTime" Precision="0" />
+    <Property Name="Return_Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Approves" Relationship="Self.FK__Approves__Issue___619B8048" FromRole="Issues" ToRole="Approves" />
+    <NavigationProperty Name="Member" Relationship="Self.FK__Issues__Id__5BE2A6F2" FromRole="Issues" ToRole="Member" />
+    <NavigationProperty Name="Reutrns" Relationship="Self.FK__Reutrn__Issue_Id__6754599E" FromRole="Issues" ToRole="Reutrn" />
+    <Property Name="Taken" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="DeadLine" Type="DateTime" Precision="0" />
+  </EntityType>
+  <EntityType Name="Member">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AustId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Phone_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="JoiningDate" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Issues" Relationship="Self.FK__Issues__Id__5BE2A6F2" FromRole="Member" ToRole="Issues" />
+    <NavigationProperty Name="monitors" Relationship="LMSModel.FK__monitor__Member___6D0D32F4" FromRole="Member" ToRole="monitor" />
+  </EntityType>
+  <EntityType Name="Reutrn">
+    <Key>
+      <PropertyRef Name="Return_Id" />
+    </Key>
+    <Property Name="Return_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Approve_Time" Type="DateTime" Precision="0" />
+    <Property Name="Admin_Id" Type="Int32" />
+    <Property Name="Issue_Id" Type="Int32" />
+    <NavigationProperty Name="Admin" Relationship="Self.FK__Reutrn__Admin_Id__66603565" FromRole="Reutrn" ToRole="Admin" />
+    <NavigationProperty Name="Issue" Relationship="Self.FK__Reutrn__Issue_Id__6754599E" FromRole="Reutrn" ToRole="Issues" />
+  </EntityType>
+  <Association Name="FK__Approves__Admin___60A75C0F">
+    <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+    <End Role="Approves" Type="Self.Approve" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Admin">
+        <PropertyRef Name="AdminId" />
+      </Principal>
+      <Dependent Role="Approves">
+        <PropertyRef Name="Admin_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Books__Issue_Adm__3B75D760">
+    <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+    <End Role="Books" Type="Self.Book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Admin">
+        <PropertyRef Name="AdminId" />
+      </Principal>
+      <Dependent Role="Books">
+        <PropertyRef Name="Issue_Admin_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Reutrn__Admin_Id__66603565">
+    <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+    <End Role="Reutrn" Type="Self.Reutrn" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Admin">
+        <PropertyRef Name="AdminId" />
+      </Principal>
+      <Dependent Role="Reutrn">
+        <PropertyRef Name="Admin_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Approves__Issue___619B8048">
+    <End Role="Issues" Type="Self.Issue" Multiplicity="0..1" />
+    <End Role="Approves" Type="Self.Approve" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Issues">
+        <PropertyRef Name="Issue_Id" />
+      </Principal>
+      <Dependent Role="Approves">
+        <PropertyRef Name="Issue_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Issues__Id__5BE2A6F2">
+    <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
+    <End Role="Issues" Type="Self.Issue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Issues">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Reutrn__Issue_Id__6754599E">
+    <End Role="Issues" Type="Self.Issue" Multiplicity="0..1" />
+    <End Role="Reutrn" Type="Self.Reutrn" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Issues">
+        <PropertyRef Name="Issue_Id" />
+      </Principal>
+      <Dependent Role="Reutrn">
+        <PropertyRef Name="Issue_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="LMSEntities4" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Admins" EntityType="Self.Admin" />
+    <EntitySet Name="Approves" EntityType="Self.Approve" />
+    <EntitySet Name="Books" EntityType="Self.Book" />
+    <EntitySet Name="Issues" EntityType="Self.Issue" />
+    <EntitySet Name="Members" EntityType="Self.Member" />
+    <EntitySet Name="Reutrns" EntityType="Self.Reutrn" />
+    <AssociationSet Name="FK__Approves__Admin___60A75C0F" Association="Self.FK__Approves__Admin___60A75C0F">
+      <End Role="Admin" EntitySet="Admins" />
+      <End Role="Approves" EntitySet="Approves" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Books__Issue_Adm__3B75D760" Association="Self.FK__Books__Issue_Adm__3B75D760">
+      <End Role="Admin" EntitySet="Admins" />
+      <End Role="Books" EntitySet="Books" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Reutrn__Admin_Id__66603565" Association="Self.FK__Reutrn__Admin_Id__66603565">
+      <End Role="Admin" EntitySet="Admins" />
+      <End Role="Reutrn" EntitySet="Reutrns" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Approves__Issue___619B8048" Association="Self.FK__Approves__Issue___619B8048">
+      <End Role="Issues" EntitySet="Issues" />
+      <End Role="Approves" EntitySet="Approves" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Issues__Id__5BE2A6F2" Association="Self.FK__Issues__Id__5BE2A6F2">
+      <End Role="Member" EntitySet="Members" />
+      <End Role="Issues" EntitySet="Issues" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Reutrn__Issue_Id__6754599E" Association="Self.FK__Reutrn__Issue_Id__6754599E">
+      <End Role="Issues" EntitySet="Issues" />
+      <End Role="Reutrn" EntitySet="Reutrns" />
+    </AssociationSet>
+    <EntitySet Name="monitors" EntityType="LMSModel.monitor" />
+    <AssociationSet Name="FK__monitor__Admin_I__6C190EBB" Association="LMSModel.FK__monitor__Admin_I__6C190EBB">
+      <End Role="Admin" EntitySet="Admins" />
+      <End Role="monitor" EntitySet="monitors" />
+    </AssociationSet>
+    <AssociationSet Name="FK__monitor__Member___6D0D32F4" Association="LMSModel.FK__monitor__Member___6D0D32F4">
+      <End Role="Member" EntitySet="Members" />
+      <End Role="monitor" EntitySet="monitors" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="monitor">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Arrival_time" Type="DateTime" Precision="0" />
+    <Property Name="Exit_Time" Type="DateTime" Precision="0" />
+    <Property Name="Admin_Id" Type="Int32" />
+    <Property Name="Member_Id" Type="Int32" />
+    <NavigationProperty Name="Admin" Relationship="LMSModel.FK__monitor__Admin_I__6C190EBB" FromRole="monitor" ToRole="Admin" />
+    <NavigationProperty Name="Member" Relationship="LMSModel.FK__monitor__Member___6D0D32F4" FromRole="monitor" ToRole="Member" />
+  </EntityType>
+  <Association Name="FK__monitor__Admin_I__6C190EBB">
+    <End Type="LMSModel.Admin" Role="Admin" Multiplicity="0..1" />
+    <End Type="LMSModel.monitor" Role="monitor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Admin">
+        <PropertyRef Name="AdminId" />
+      </Principal>
+      <Dependent Role="monitor">
+        <PropertyRef Name="Admin_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__monitor__Member___6D0D32F4">
+    <End Type="LMSModel.Member" Role="Member" Multiplicity="0..1" />
+    <End Type="LMSModel.monitor" Role="monitor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="monitor">
+        <PropertyRef Name="Member_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

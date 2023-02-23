@@ -1,0 +1,81 @@
+﻿@model IEnumerable<LMS.Models.Book>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+@if (Session["AdminId"] != null)
+{ 
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+}
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Author)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Number_of_Copies)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Arrival_Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Admin.AdminId)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Author)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Number_of_Copies)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Category)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Arrival_Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Admin.AdminId)
+        </td>
+        @if (Session["AdminId"] != null)
+        {
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.Book_Id }) |
+                @Html.ActionLink("Details", "Details", new { id = item.Book_Id }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.Book_Id })
+            </td>
+        }
+        else
+        {
+            <td>
+                @Html.ActionLink("Issue", "Edit", new { id = item.Book_Id }) |
+            </td>
+        }
+    </tr>
+    }
+
+</table>

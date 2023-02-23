@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="LMSModelStoreContainer" CdmEntityContainer="LMSEntities4">
+    <EntitySetMapping Name="Admins">
+      <EntityTypeMapping TypeName="LMSModel.Admin">
+        <MappingFragment StoreEntitySet="Admin">
+          <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="AdminName" ColumnName="AdminName" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Approves">
+      <EntityTypeMapping TypeName="LMSModel.Approve">
+        <MappingFragment StoreEntitySet="Approves">
+          <ScalarProperty Name="Approve_Id" ColumnName="Approve Id" />
+          <ScalarProperty Name="Approve_Time" ColumnName="Approve Time" />
+          <ScalarProperty Name="Admin_Id" ColumnName="Admin Id" />
+          <ScalarProperty Name="Issue_Id" ColumnName="Issue Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Books">
+      <EntityTypeMapping TypeName="LMSModel.Book">
+        <MappingFragment StoreEntitySet="Books">
+          <ScalarProperty Name="Book_Id" ColumnName="Book Id" />
+          <ScalarProperty Name="Author" ColumnName="Author" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Number_of_Copies" ColumnName="Number of Copies" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+          <ScalarProperty Name="Issue_Admin_Id" ColumnName="Issue Admin Id" />
+          <ScalarProperty Name="Arrival_Date" ColumnName="Arrival Date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Issues">
+      <EntityTypeMapping TypeName="LMSModel.Issue">
+        <MappingFragment StoreEntitySet="Issues">
+          <ScalarProperty Name="DeadLine" ColumnName="DeadLine" />
+          <ScalarProperty Name="Taken" ColumnName="Taken" />
+          <ScalarProperty Name="Issue_Id" ColumnName="Issue Id" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Issue_Date" ColumnName="Issue Date" />
+          <ScalarProperty Name="Return_Status" ColumnName="Return Status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Members">
+      <EntityTypeMapping TypeName="LMSModel.Member">
+        <MappingFragment StoreEntitySet="Member">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="AustId" ColumnName="AustId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Phone_Number" ColumnName="Phone Number" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="JoiningDate" ColumnName="JoiningDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reutrns">
+      <EntityTypeMapping TypeName="LMSModel.Reutrn">
+        <MappingFragment StoreEntitySet="Reutrn">
+          <ScalarProperty Name="Return_Id" ColumnName="Return Id" />
+          <ScalarProperty Name="Approve_Time" ColumnName="Approve Time" />
+          <ScalarProperty Name="Admin_Id" ColumnName="Admin Id" />
+          <ScalarProperty Name="Issue_Id" ColumnName="Issue Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="monitors">
+      <EntityTypeMapping TypeName="LMSModel.monitor">
+        <MappingFragment StoreEntitySet="monitor">
+          <ScalarProperty Name="Member_Id" ColumnName="Member Id" />
+          <ScalarProperty Name="Admin_Id" ColumnName="Admin Id" />
+          <ScalarProperty Name="Exit_Time" ColumnName="Exit Time" />
+          <ScalarProperty Name="Arrival_time" ColumnName="Arrival time" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

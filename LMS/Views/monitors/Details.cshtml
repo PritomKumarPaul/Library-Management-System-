@@ -1,0 +1,50 @@
+﻿@model LMS.Models.monitor
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>monitor</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Arrival_time)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Arrival_time)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Exit_Time)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Exit_Time)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Admin.Password)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Admin.Password)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Member.AustId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Member.AustId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

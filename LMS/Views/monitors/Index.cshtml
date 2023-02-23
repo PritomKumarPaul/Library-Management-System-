@@ -1,0 +1,61 @@
+﻿@model IEnumerable<LMS.Models.monitor>
+
+@{
+    ViewBag.Title = "Record Exit Time";
+}
+
+@using LMS.Models;
+<br /><br />
+
+@using (Html.BeginForm("Index", "monitors", FormMethod.Get))
+{
+    @Html.TextBox("search")<input type="submit" value="Search" />
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Member.Id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Arrival_time)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Exit_Time)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Admin.AdminId)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        if (item.Exit_Time.Equals(null))
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Member.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Arrival_time)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Exit_Time)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Admin.AdminId)
+                </td>
+                <td>
+                    @Html.ActionLink("Exit", "Exit", new { id = item.Id }, null)
+                </td>
+            </tr>
+        }
+    }
+
+</table>

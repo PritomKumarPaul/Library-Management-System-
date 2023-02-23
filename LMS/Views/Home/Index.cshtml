@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "Welcome!";
+}
+@using LMS.Models;
+<h2>Index</h2>
+<div class="form-group">
+    <div class="col-md-offset-2 col-md-10">
+        @if (Session["AdminName"] != null)
+        {
+            <label>@ViewBag.Notification @Session["AdminName"]</label>
+
+        }
+        else if (Session["Name"] != null)
+        { 
+           <label>@ViewBag.Notification @Session["Name"]</label>
+        }
+        else
+        {
+            <label><p>Please Login or Register!</p></label>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10" float="left">
+                    <button type="button" onclick="location.href='@Url.Action("LoginMember","Home")'">Login</button>
+                </div>
+            </div>
+            <br />
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10" float="left">
+                    <button type="button" onclick="location.href='@Url.Action("SignUp","Home")'">Register</button>
+                </div>
+            </div>
+            <label>@ViewBag.Notification</label>
+        }
+    </div>
+</div>

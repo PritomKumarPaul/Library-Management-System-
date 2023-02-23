@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="AdminId" />
+    </Key>
+    <Property Name="AdminId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AdminName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Books" Relationship="Self.FK__Books__Issue_Adm__3B75D760" FromRole="Admin" ToRole="Books" />
+    <NavigationProperty Name="Issues" Relationship="Self.FK__Issues__Issue_Ad__403A8C7D" FromRole="Admin" ToRole="Issues" />
+    <NavigationProperty Name="Issues1" Relationship="Self.FK__Issues__Return_A__412EB0B6" FromRole="Admin" ToRole="Issues" />
+    <NavigationProperty Name="Members" Relationship="Self.FK__Member__AdminId__30F848ED" FromRole="Admin" ToRole="Member" />
+    <NavigationProperty Name="Uses" Relationship="Self.FK__Uses__AdminId__36B12243" FromRole="Admin" ToRole="Uses" />
+  </EntityType>
+  <EntityType Name="Book">
+    <Key>
+      <PropertyRef Name="Book_Id" />
+    </Key>
+    <Property Name="Book_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Price" Type="Int32" />
+    <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Number_of_Copies" Type="Int32" />
+    <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Issue_Admin_Id" Type="Int32" />
+    <Property Name="Arrival_Date" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Admin" Relationship="Self.FK__Books__Issue_Adm__3B75D760" FromRole="Books" ToRole="Admin" />
+  </EntityType>
+  <EntityType Name="Issue">
+    <Key>
+      <PropertyRef Name="Issue_Id" />
+    </Key>
+    <Property Name="Issue_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Issue_Date" Type="DateTime" Precision="0" />
+    <Property Name="Return_Date" Type="DateTime" Precision="0" />
+    <Property Name="Issue_Admin_Id" Type="Int32" />
+    <Property Name="Return_Admin_Id" Type="Int32" />
+    <NavigationProperty Name="Admin" Relationship="Self.FK__Issues__Issue_Ad__403A8C7D" FromRole="Issues" ToRole="Admin" />
+    <NavigationProperty Name="Admin1" Relationship="Self.FK__Issues__Return_A__412EB0B6" FromRole="Issues" ToRole="Admin" />
+  </EntityType>
+  <EntityType Name="Member">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Aust_Id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Phone_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AdminId" Type="Int32" />
+    <Property Name="JoiningDate" Type="DateTime" Precision="0" />
+    <Property Name="Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Admin" Relationship="Self.FK__Member__AdminId__30F848ED" FromRole="Member" ToRole="Admin" />
+    <NavigationProperty Name="Uses" Relationship="Self.FK__Uses__Id__35BCFE0A" FromRole="Member" ToRole="Uses" />
+  </EntityType>
+  <EntityType Name="Us">
+    <Key>
+      <PropertyRef Name="Uses_ID" />
+    </Key>
+    <Property Name="Uses_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Id" Type="Int32" />
+    <Property Name="Entry_time" Type="Time" Precision="7" />
+    <Property Name="Exit_time" Type="Time" Precision="7" />
+    <Property Name="AdminId" Type="Int32" />
+    <NavigationProperty Name="Admin" Relationship="Self.FK__Uses__AdminId__36B12243" FromRole="Uses" ToRole="Admin" />
+    <NavigationProperty Name="Member" Relationship="Self.FK__Uses__Id__35BCFE0A" FromRole="Uses" ToRole="Member" />
+  </EntityType>
+  <Association Name="FK__Books__Issue_Adm__3B75D760">
+    <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+    <End Role="Books" Type="Self.Book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Admin">
+        <PropertyRef Name="AdminId" />
+      </Principal>
+      <Dependent Role="Books">
+        <PropertyRef Name="Issue_Admin_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Issues__Issue_Ad__403A8C7D">
+    <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+    <End Role="Issues" Type="Self.Issue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Admin">
+        <PropertyRef Name="AdminId" />
+      </Principal>
+      <Dependent Role="Issues">
+        <PropertyRef Name="Issue_Admin_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Issues__Return_A__412EB0B6">
+    <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+    <End Role="Issues" Type="Self.Issue" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Admin">
+        <PropertyRef Name="AdminId" />
+      </Principal>
+      <Dependent Role="Issues">
+        <PropertyRef Name="Return_Admin_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Member__AdminId__30F848ED">
+    <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+    <End Role="Member" Type="Self.Member" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Admin">
+        <PropertyRef Name="AdminId" />
+      </Principal>
+      <Dependent Role="Member">
+        <PropertyRef Name="AdminId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Uses__AdminId__36B12243">
+    <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+    <End Role="Uses" Type="Self.Us" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Admin">
+        <PropertyRef Name="AdminId" />
+      </Principal>
+      <Dependent Role="Uses">
+        <PropertyRef Name="AdminId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Uses__Id__35BCFE0A">
+    <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
+    <End Role="Uses" Type="Self.Us" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Uses">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="LMSEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Admins" EntityType="Self.Admin" />
+    <EntitySet Name="Books" EntityType="Self.Book" />
+    <EntitySet Name="Issues" EntityType="Self.Issue" />
+    <EntitySet Name="Members" EntityType="Self.Member" />
+    <EntitySet Name="Uses" EntityType="Self.Us" />
+    <AssociationSet Name="FK__Books__Issue_Adm__3B75D760" Association="Self.FK__Books__Issue_Adm__3B75D760">
+      <End Role="Admin" EntitySet="Admins" />
+      <End Role="Books" EntitySet="Books" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Issues__Issue_Ad__403A8C7D" Association="Self.FK__Issues__Issue_Ad__403A8C7D">
+      <End Role="Admin" EntitySet="Admins" />
+      <End Role="Issues" EntitySet="Issues" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Issues__Return_A__412EB0B6" Association="Self.FK__Issues__Return_A__412EB0B6">
+      <End Role="Admin" EntitySet="Admins" />
+      <End Role="Issues" EntitySet="Issues" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Member__AdminId__30F848ED" Association="Self.FK__Member__AdminId__30F848ED">
+      <End Role="Admin" EntitySet="Admins" />
+      <End Role="Member" EntitySet="Members" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Uses__AdminId__36B12243" Association="Self.FK__Uses__AdminId__36B12243">
+      <End Role="Admin" EntitySet="Admins" />
+      <End Role="Uses" EntitySet="Uses" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Uses__Id__35BCFE0A" Association="Self.FK__Uses__Id__35BCFE0A">
+      <End Role="Member" EntitySet="Members" />
+      <End Role="Uses" EntitySet="Uses" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

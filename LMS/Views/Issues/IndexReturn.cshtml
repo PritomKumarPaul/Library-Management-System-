@@ -1,0 +1,55 @@
+﻿@model IEnumerable<LMS.Models.Issue>
+
+@{
+    ViewBag.Title = "Return books";
+}
+
+<h2>Take the issued books back from the students</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Issue_Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Return_Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Member.Id)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    if (item.Return_Status.Equals("false"))
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Issue_Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Return_Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Member.Id)
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id=item.Issue_Id }) |*@
+                @if (Session["AdminId"] != null)
+                {
+                    @Html.ActionLink("Return", "Return", "Home", new { id = item.Issue_Id }, null)
+                }
+                @*@Html.ActionLink("Delete", "Delete", new { id=item.Issue_Id })*@
+            </td>
+        </tr>
+    }
+    
+}
+
+</table>

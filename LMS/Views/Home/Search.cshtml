@@ -1,0 +1,77 @@
+﻿@model IEnumerable<LMS.Models.Book>
+
+@{
+    ViewBag.Title = "Select Book";
+}
+<br /><br />
+
+@using (Html.BeginForm("Search", "Home", FormMethod.Get))
+{
+    @Html.TextBox("search")<input type="submit" value="Search" />
+}
+<h2>Search</h2>
+@using LMS.Models;
+<table class="table table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Author)
+        </th>
+        <th>
+            Remaining Copies
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category)
+        </th>
+        <th></th>
+    </tr>
+    @if (Model.Count() == 0)
+    {
+        <tr>
+            <td colspan="3" style="color:red">
+                No match with any content
+            </td>
+        </tr>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+
+            LMSEntities4 db = new LMSEntities4();
+            Book book = db.Books.Where(x => x.Title == item.Title).FirstOrDefault();
+            //book.Title = issue.Title;
+            var copies = book.Number_of_Copies;
+            int usedcopies = db.Issues.Where(x => x.Title == item.Title && x.Return_Status.Equals("false")).Count();
+            if (copies - usedcopies > 0)
+            {
+                var x = copies - usedcopies;
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Title)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Author)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => x)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Category)
+                    </td>
+                    <td>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10" float="left">
+                                <button type="button" onclick="location.href='@Url.Action("IssueCreate", "Home", new { Title = item.Title })'">Issue</button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+
+        }
+    }
+
+</table>

@@ -1,0 +1,563 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="LMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="AdminId" />
+          </Key>
+          <Property Name="AdminId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="AdminName" Type="varchar" MaxLength="50" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Approves">
+          <Key>
+            <PropertyRef Name="Approve Id" />
+          </Key>
+          <Property Name="Approve Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Approve Time" Type="date" />
+          <Property Name="Admin Id" Type="int" />
+          <Property Name="Issue Id" Type="int" />
+        </EntityType>
+        <EntityType Name="Books">
+          <Key>
+            <PropertyRef Name="Book Id" />
+          </Key>
+          <Property Name="Book Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Author" Type="varchar" MaxLength="50" />
+          <Property Name="Price" Type="int" />
+          <Property Name="Title" Type="varchar" MaxLength="50" />
+          <Property Name="Number of Copies" Type="int" />
+          <Property Name="Category" Type="varchar" MaxLength="50" />
+          <Property Name="Issue Admin Id" Type="int" />
+          <Property Name="Arrival Date" Type="date" />
+        </EntityType>
+        <EntityType Name="Issues">
+          <Key>
+            <PropertyRef Name="Issue Id" />
+          </Key>
+          <Property Name="Issue Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="int" />
+          <Property Name="Title" Type="varchar" MaxLength="50" />
+          <Property Name="Issue Date" Type="date" />
+          <Property Name="Return Status" Type="varchar" MaxLength="50" />
+          <Property Name="Taken" Type="varchar" MaxLength="10" />
+          <Property Name="DeadLine" Type="date" />
+        </EntityType>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AustId" Type="varchar" MaxLength="50" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="Phone Number" Type="varchar" MaxLength="50" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+          <Property Name="JoiningDate" Type="date" />
+        </EntityType>
+        <EntityType Name="monitor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Arrival time" Type="smalldatetime" />
+          <Property Name="Exit Time" Type="smalldatetime" />
+          <Property Name="Admin Id" Type="int" />
+          <Property Name="Member Id" Type="int" />
+        </EntityType>
+        <EntityType Name="Reutrn">
+          <Key>
+            <PropertyRef Name="Return Id" />
+          </Key>
+          <Property Name="Return Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Approve Time" Type="date" />
+          <Property Name="Admin Id" Type="int" />
+          <Property Name="Issue Id" Type="int" />
+        </EntityType>
+        <Association Name="FK__Approves__Admin __60A75C0F">
+          <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+          <End Role="Approves" Type="Self.Approves" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Admin">
+              <PropertyRef Name="AdminId" />
+            </Principal>
+            <Dependent Role="Approves">
+              <PropertyRef Name="Admin Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Approves__Issue __619B8048">
+          <End Role="Issues" Type="Self.Issues" Multiplicity="0..1" />
+          <End Role="Approves" Type="Self.Approves" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Issues">
+              <PropertyRef Name="Issue Id" />
+            </Principal>
+            <Dependent Role="Approves">
+              <PropertyRef Name="Issue Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Books__Issue Adm__3B75D760">
+          <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+          <End Role="Books" Type="Self.Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Admin">
+              <PropertyRef Name="AdminId" />
+            </Principal>
+            <Dependent Role="Books">
+              <PropertyRef Name="Issue Admin Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Issues__Id__5BE2A6F2">
+          <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
+          <End Role="Issues" Type="Self.Issues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Issues">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__monitor__Admin I__6C190EBB">
+          <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+          <End Role="monitor" Type="Self.monitor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Admin">
+              <PropertyRef Name="AdminId" />
+            </Principal>
+            <Dependent Role="monitor">
+              <PropertyRef Name="Admin Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__monitor__Member __6D0D32F4">
+          <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
+          <End Role="monitor" Type="Self.monitor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="monitor">
+              <PropertyRef Name="Member Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reutrn__Admin Id__66603565">
+          <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+          <End Role="Reutrn" Type="Self.Reutrn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Admin">
+              <PropertyRef Name="AdminId" />
+            </Principal>
+            <Dependent Role="Reutrn">
+              <PropertyRef Name="Admin Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reutrn__Issue Id__6754599E">
+          <End Role="Issues" Type="Self.Issues" Multiplicity="0..1" />
+          <End Role="Reutrn" Type="Self.Reutrn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Issues">
+              <PropertyRef Name="Issue Id" />
+            </Principal>
+            <Dependent Role="Reutrn">
+              <PropertyRef Name="Issue Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LMSModelStoreContainer">
+          <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Approves" EntityType="Self.Approves" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Books" EntityType="Self.Books" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Issues" EntityType="Self.Issues" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="monitor" EntityType="Self.monitor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reutrn" EntityType="Self.Reutrn" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Approves__Admin __60A75C0F" Association="Self.FK__Approves__Admin __60A75C0F">
+            <End Role="Admin" EntitySet="Admin" />
+            <End Role="Approves" EntitySet="Approves" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Approves__Issue __619B8048" Association="Self.FK__Approves__Issue __619B8048">
+            <End Role="Issues" EntitySet="Issues" />
+            <End Role="Approves" EntitySet="Approves" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Books__Issue Adm__3B75D760" Association="Self.FK__Books__Issue Adm__3B75D760">
+            <End Role="Admin" EntitySet="Admin" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Issues__Id__5BE2A6F2" Association="Self.FK__Issues__Id__5BE2A6F2">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="Issues" EntitySet="Issues" />
+          </AssociationSet>
+          <AssociationSet Name="FK__monitor__Admin I__6C190EBB" Association="Self.FK__monitor__Admin I__6C190EBB">
+            <End Role="Admin" EntitySet="Admin" />
+            <End Role="monitor" EntitySet="monitor" />
+          </AssociationSet>
+          <AssociationSet Name="FK__monitor__Member __6D0D32F4" Association="Self.FK__monitor__Member __6D0D32F4">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="monitor" EntitySet="monitor" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reutrn__Admin Id__66603565" Association="Self.FK__Reutrn__Admin Id__66603565">
+            <End Role="Admin" EntitySet="Admin" />
+            <End Role="Reutrn" EntitySet="Reutrn" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reutrn__Issue Id__6754599E" Association="Self.FK__Reutrn__Issue Id__6754599E">
+            <End Role="Issues" EntitySet="Issues" />
+            <End Role="Reutrn" EntitySet="Reutrn" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Admin">
+          <Key>
+            <PropertyRef Name="AdminId" />
+          </Key>
+          <Property Name="AdminId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AdminName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Approves" Relationship="Self.FK__Approves__Admin___60A75C0F" FromRole="Admin" ToRole="Approves" />
+          <NavigationProperty Name="Books" Relationship="Self.FK__Books__Issue_Adm__3B75D760" FromRole="Admin" ToRole="Books" />
+          <NavigationProperty Name="Reutrns" Relationship="Self.FK__Reutrn__Admin_Id__66603565" FromRole="Admin" ToRole="Reutrn" />
+          <NavigationProperty Name="monitors" Relationship="LMSModel.FK__monitor__Admin_I__6C190EBB" FromRole="Admin" ToRole="monitor" />
+        </EntityType>
+        <EntityType Name="Approve">
+          <Key>
+            <PropertyRef Name="Approve_Id" />
+          </Key>
+          <Property Name="Approve_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Approve_Time" Type="DateTime" Precision="0" />
+          <Property Name="Admin_Id" Type="Int32" />
+          <Property Name="Issue_Id" Type="Int32" />
+          <NavigationProperty Name="Admin" Relationship="Self.FK__Approves__Admin___60A75C0F" FromRole="Approves" ToRole="Admin" />
+          <NavigationProperty Name="Issue" Relationship="Self.FK__Approves__Issue___619B8048" FromRole="Approves" ToRole="Issues" />
+        </EntityType>
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="Book_Id" />
+          </Key>
+          <Property Name="Book_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Author" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Price" Type="Int32" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Number_of_Copies" Type="Int32" />
+          <Property Name="Category" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Issue_Admin_Id" Type="Int32" />
+          <Property Name="Arrival_Date" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Admin" Relationship="Self.FK__Books__Issue_Adm__3B75D760" FromRole="Books" ToRole="Admin" />
+        </EntityType>
+        <EntityType Name="Issue">
+          <Key>
+            <PropertyRef Name="Issue_Id" />
+          </Key>
+          <Property Name="Issue_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int32" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Issue_Date" Type="DateTime" Precision="0" />
+          <Property Name="Return_Status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Approves" Relationship="Self.FK__Approves__Issue___619B8048" FromRole="Issues" ToRole="Approves" />
+          <NavigationProperty Name="Member" Relationship="Self.FK__Issues__Id__5BE2A6F2" FromRole="Issues" ToRole="Member" />
+          <NavigationProperty Name="Reutrns" Relationship="Self.FK__Reutrn__Issue_Id__6754599E" FromRole="Issues" ToRole="Reutrn" />
+          <Property Name="Taken" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="DeadLine" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="Member">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AustId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Phone_Number" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="JoiningDate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Issues" Relationship="Self.FK__Issues__Id__5BE2A6F2" FromRole="Member" ToRole="Issues" />
+          <NavigationProperty Name="monitors" Relationship="LMSModel.FK__monitor__Member___6D0D32F4" FromRole="Member" ToRole="monitor" />
+        </EntityType>
+        <EntityType Name="Reutrn">
+          <Key>
+            <PropertyRef Name="Return_Id" />
+          </Key>
+          <Property Name="Return_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Approve_Time" Type="DateTime" Precision="0" />
+          <Property Name="Admin_Id" Type="Int32" />
+          <Property Name="Issue_Id" Type="Int32" />
+          <NavigationProperty Name="Admin" Relationship="Self.FK__Reutrn__Admin_Id__66603565" FromRole="Reutrn" ToRole="Admin" />
+          <NavigationProperty Name="Issue" Relationship="Self.FK__Reutrn__Issue_Id__6754599E" FromRole="Reutrn" ToRole="Issues" />
+        </EntityType>
+        <Association Name="FK__Approves__Admin___60A75C0F">
+          <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+          <End Role="Approves" Type="Self.Approve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Admin">
+              <PropertyRef Name="AdminId" />
+            </Principal>
+            <Dependent Role="Approves">
+              <PropertyRef Name="Admin_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Books__Issue_Adm__3B75D760">
+          <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+          <End Role="Books" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Admin">
+              <PropertyRef Name="AdminId" />
+            </Principal>
+            <Dependent Role="Books">
+              <PropertyRef Name="Issue_Admin_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reutrn__Admin_Id__66603565">
+          <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+          <End Role="Reutrn" Type="Self.Reutrn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Admin">
+              <PropertyRef Name="AdminId" />
+            </Principal>
+            <Dependent Role="Reutrn">
+              <PropertyRef Name="Admin_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Approves__Issue___619B8048">
+          <End Role="Issues" Type="Self.Issue" Multiplicity="0..1" />
+          <End Role="Approves" Type="Self.Approve" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Issues">
+              <PropertyRef Name="Issue_Id" />
+            </Principal>
+            <Dependent Role="Approves">
+              <PropertyRef Name="Issue_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Issues__Id__5BE2A6F2">
+          <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
+          <End Role="Issues" Type="Self.Issue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Issues">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Reutrn__Issue_Id__6754599E">
+          <End Role="Issues" Type="Self.Issue" Multiplicity="0..1" />
+          <End Role="Reutrn" Type="Self.Reutrn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Issues">
+              <PropertyRef Name="Issue_Id" />
+            </Principal>
+            <Dependent Role="Reutrn">
+              <PropertyRef Name="Issue_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LMSEntities4" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Admins" EntityType="Self.Admin" />
+          <EntitySet Name="Approves" EntityType="Self.Approve" />
+          <EntitySet Name="Books" EntityType="Self.Book" />
+          <EntitySet Name="Issues" EntityType="Self.Issue" />
+          <EntitySet Name="Members" EntityType="Self.Member" />
+          <EntitySet Name="Reutrns" EntityType="Self.Reutrn" />
+          <AssociationSet Name="FK__Approves__Admin___60A75C0F" Association="Self.FK__Approves__Admin___60A75C0F">
+            <End Role="Admin" EntitySet="Admins" />
+            <End Role="Approves" EntitySet="Approves" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Books__Issue_Adm__3B75D760" Association="Self.FK__Books__Issue_Adm__3B75D760">
+            <End Role="Admin" EntitySet="Admins" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reutrn__Admin_Id__66603565" Association="Self.FK__Reutrn__Admin_Id__66603565">
+            <End Role="Admin" EntitySet="Admins" />
+            <End Role="Reutrn" EntitySet="Reutrns" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Approves__Issue___619B8048" Association="Self.FK__Approves__Issue___619B8048">
+            <End Role="Issues" EntitySet="Issues" />
+            <End Role="Approves" EntitySet="Approves" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Issues__Id__5BE2A6F2" Association="Self.FK__Issues__Id__5BE2A6F2">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="Issues" EntitySet="Issues" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Reutrn__Issue_Id__6754599E" Association="Self.FK__Reutrn__Issue_Id__6754599E">
+            <End Role="Issues" EntitySet="Issues" />
+            <End Role="Reutrn" EntitySet="Reutrns" />
+          </AssociationSet>
+          <EntitySet Name="monitors" EntityType="LMSModel.monitor" />
+          <AssociationSet Name="FK__monitor__Admin_I__6C190EBB" Association="LMSModel.FK__monitor__Admin_I__6C190EBB">
+            <End Role="Admin" EntitySet="Admins" />
+            <End Role="monitor" EntitySet="monitors" />
+          </AssociationSet>
+          <AssociationSet Name="FK__monitor__Member___6D0D32F4" Association="LMSModel.FK__monitor__Member___6D0D32F4">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="monitor" EntitySet="monitors" />
+          </AssociationSet>
+          </EntityContainer>
+        <EntityType Name="monitor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Arrival_time" Type="DateTime" Precision="0" />
+          <Property Name="Exit_Time" Type="DateTime" Precision="0" />
+          <Property Name="Admin_Id" Type="Int32" />
+          <Property Name="Member_Id" Type="Int32" />
+          <NavigationProperty Name="Admin" Relationship="LMSModel.FK__monitor__Admin_I__6C190EBB" FromRole="monitor" ToRole="Admin" />
+          <NavigationProperty Name="Member" Relationship="LMSModel.FK__monitor__Member___6D0D32F4" FromRole="monitor" ToRole="Member" />
+        </EntityType>
+        <Association Name="FK__monitor__Admin_I__6C190EBB">
+          <End Type="LMSModel.Admin" Role="Admin" Multiplicity="0..1" />
+          <End Type="LMSModel.monitor" Role="monitor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Admin">
+              <PropertyRef Name="AdminId" />
+            </Principal>
+            <Dependent Role="monitor">
+              <PropertyRef Name="Admin_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__monitor__Member___6D0D32F4">
+          <End Type="LMSModel.Member" Role="Member" Multiplicity="0..1" />
+          <End Type="LMSModel.monitor" Role="monitor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="monitor">
+              <PropertyRef Name="Member_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LMSModelStoreContainer" CdmEntityContainer="LMSEntities4">
+          <EntitySetMapping Name="Admins">
+            <EntityTypeMapping TypeName="LMSModel.Admin">
+              <MappingFragment StoreEntitySet="Admin">
+                <ScalarProperty Name="AdminId" ColumnName="AdminId" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="AdminName" ColumnName="AdminName" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Approves">
+            <EntityTypeMapping TypeName="LMSModel.Approve">
+              <MappingFragment StoreEntitySet="Approves">
+                <ScalarProperty Name="Approve_Id" ColumnName="Approve Id" />
+                <ScalarProperty Name="Approve_Time" ColumnName="Approve Time" />
+                <ScalarProperty Name="Admin_Id" ColumnName="Admin Id" />
+                <ScalarProperty Name="Issue_Id" ColumnName="Issue Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Books">
+            <EntityTypeMapping TypeName="LMSModel.Book">
+              <MappingFragment StoreEntitySet="Books">
+                <ScalarProperty Name="Book_Id" ColumnName="Book Id" />
+                <ScalarProperty Name="Author" ColumnName="Author" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Number_of_Copies" ColumnName="Number of Copies" />
+                <ScalarProperty Name="Category" ColumnName="Category" />
+                <ScalarProperty Name="Issue_Admin_Id" ColumnName="Issue Admin Id" />
+                <ScalarProperty Name="Arrival_Date" ColumnName="Arrival Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Issues">
+            <EntityTypeMapping TypeName="LMSModel.Issue">
+              <MappingFragment StoreEntitySet="Issues">
+                <ScalarProperty Name="DeadLine" ColumnName="DeadLine" />
+                <ScalarProperty Name="Taken" ColumnName="Taken" />
+                <ScalarProperty Name="Issue_Id" ColumnName="Issue Id" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Issue_Date" ColumnName="Issue Date" />
+                <ScalarProperty Name="Return_Status" ColumnName="Return Status" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Members">
+            <EntityTypeMapping TypeName="LMSModel.Member">
+              <MappingFragment StoreEntitySet="Member">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="AustId" ColumnName="AustId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Phone_Number" ColumnName="Phone Number" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="JoiningDate" ColumnName="JoiningDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reutrns">
+            <EntityTypeMapping TypeName="LMSModel.Reutrn">
+              <MappingFragment StoreEntitySet="Reutrn">
+                <ScalarProperty Name="Return_Id" ColumnName="Return Id" />
+                <ScalarProperty Name="Approve_Time" ColumnName="Approve Time" />
+                <ScalarProperty Name="Admin_Id" ColumnName="Admin Id" />
+                <ScalarProperty Name="Issue_Id" ColumnName="Issue Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="monitors">
+            <EntityTypeMapping TypeName="LMSModel.monitor">
+              <MappingFragment StoreEntitySet="monitor">
+                <ScalarProperty Name="Member_Id" ColumnName="Member Id" />
+                <ScalarProperty Name="Admin_Id" ColumnName="Admin Id" />
+                <ScalarProperty Name="Exit_Time" ColumnName="Exit Time" />
+                <ScalarProperty Name="Arrival_time" ColumnName="Arrival time" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

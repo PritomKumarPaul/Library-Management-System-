@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Admin">
+    <Key>
+      <PropertyRef Name="AdminId" />
+    </Key>
+    <Property Name="AdminId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Password" Type="varchar" MaxLength="50" />
+    <Property Name="AdminName" Type="varchar" MaxLength="50" />
+    <Property Name="PhoneNumber" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Books">
+    <Key>
+      <PropertyRef Name="Book Id" />
+    </Key>
+    <Property Name="Book Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Author" Type="varchar" MaxLength="50" />
+    <Property Name="Price" Type="int" />
+    <Property Name="Title" Type="varchar" MaxLength="50" />
+    <Property Name="Number of Copies" Type="int" />
+    <Property Name="Category" Type="varchar" MaxLength="50" />
+    <Property Name="Issue Admin Id" Type="int" />
+    <Property Name="Arrival Date" Type="date" />
+  </EntityType>
+  <EntityType Name="Issues">
+    <Key>
+      <PropertyRef Name="Issue Id" />
+    </Key>
+    <Property Name="Issue Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Issue Date" Type="date" />
+    <Property Name="Return Date" Type="date" />
+    <Property Name="Issue Admin Id" Type="int" />
+    <Property Name="Return Admin Id" Type="int" />
+  </EntityType>
+  <EntityType Name="Member">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="Password" Type="varchar" MaxLength="50" />
+    <Property Name="Aust Id" Type="varchar" MaxLength="50" />
+    <Property Name="Phone Number" Type="varchar" MaxLength="50" />
+    <Property Name="Email" Type="varchar" MaxLength="50" />
+    <Property Name="AdminId" Type="int" />
+    <Property Name="JoiningDate" Type="date" />
+    <Property Name="Status" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Uses">
+    <Key>
+      <PropertyRef Name="Uses ID" />
+    </Key>
+    <Property Name="Uses ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Id" Type="int" />
+    <Property Name="Entry_time" Type="time" Precision="7" />
+    <Property Name="Exit_time" Type="time" Precision="7" />
+    <Property Name="AdminId" Type="int" />
+  </EntityType>
+  <Association Name="FK__Books__Issue Adm__3B75D760">
+    <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+    <End Role="Books" Type="Self.Books" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Admin">
+        <PropertyRef Name="AdminId" />
+      </Principal>
+      <Dependent Role="Books">
+        <PropertyRef Name="Issue Admin Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Issues__Issue Ad__403A8C7D">
+    <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+    <End Role="Issues" Type="Self.Issues" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Admin">
+        <PropertyRef Name="AdminId" />
+      </Principal>
+      <Dependent Role="Issues">
+        <PropertyRef Name="Issue Admin Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Issues__Return A__412EB0B6">
+    <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+    <End Role="Issues" Type="Self.Issues" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Admin">
+        <PropertyRef Name="AdminId" />
+      </Principal>
+      <Dependent Role="Issues">
+        <PropertyRef Name="Return Admin Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Member__AdminId__30F848ED">
+    <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+    <End Role="Member" Type="Self.Member" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Admin">
+        <PropertyRef Name="AdminId" />
+      </Principal>
+      <Dependent Role="Member">
+        <PropertyRef Name="AdminId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Uses__AdminId__36B12243">
+    <End Role="Admin" Type="Self.Admin" Multiplicity="0..1" />
+    <End Role="Uses" Type="Self.Uses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Admin">
+        <PropertyRef Name="AdminId" />
+      </Principal>
+      <Dependent Role="Uses">
+        <PropertyRef Name="AdminId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Uses__Id__35BCFE0A">
+    <End Role="Member" Type="Self.Member" Multiplicity="0..1" />
+    <End Role="Uses" Type="Self.Uses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Member">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Uses">
+        <PropertyRef Name="Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="LMSModelStoreContainer">
+    <EntitySet Name="Admin" EntityType="Self.Admin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Books" EntityType="Self.Books" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Issues" EntityType="Self.Issues" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Uses" EntityType="Self.Uses" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__Books__Issue Adm__3B75D760" Association="Self.FK__Books__Issue Adm__3B75D760">
+      <End Role="Admin" EntitySet="Admin" />
+      <End Role="Books" EntitySet="Books" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Issues__Issue Ad__403A8C7D" Association="Self.FK__Issues__Issue Ad__403A8C7D">
+      <End Role="Admin" EntitySet="Admin" />
+      <End Role="Issues" EntitySet="Issues" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Issues__Return A__412EB0B6" Association="Self.FK__Issues__Return A__412EB0B6">
+      <End Role="Admin" EntitySet="Admin" />
+      <End Role="Issues" EntitySet="Issues" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Member__AdminId__30F848ED" Association="Self.FK__Member__AdminId__30F848ED">
+      <End Role="Admin" EntitySet="Admin" />
+      <End Role="Member" EntitySet="Member" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Uses__AdminId__36B12243" Association="Self.FK__Uses__AdminId__36B12243">
+      <End Role="Admin" EntitySet="Admin" />
+      <End Role="Uses" EntitySet="Uses" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Uses__Id__35BCFE0A" Association="Self.FK__Uses__Id__35BCFE0A">
+      <End Role="Member" EntitySet="Member" />
+      <End Role="Uses" EntitySet="Uses" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

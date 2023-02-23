@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="58e00c5f82c64c8db2ec9020abf66f56" Name="Diagram1">
+        <EntityTypeShape EntityType="LMSModel.Admin" Width="1.5" PointX="0.75" PointY="5.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LMSModel.Approve" Width="1.5" PointX="3" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="LMSModel.Book" Width="1.5" PointX="3" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LMSModel.Issue" Width="1.5" PointX="3.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="LMSModel.Member" Width="1.5" PointX="1.5" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="LMSModel.Reutrn" Width="1.5" PointX="6" PointY="3.125" IsExpanded="true" />
+        <AssociationConnector Association="LMSModel.FK__Approves__Admin___60A75C0F" ManuallyRouted="false" />
+        <AssociationConnector Association="LMSModel.FK__Books__Issue_Adm__3B75D760" ManuallyRouted="false" />
+        <AssociationConnector Association="LMSModel.FK__Reutrn__Admin_Id__66603565" ManuallyRouted="false" />
+        <AssociationConnector Association="LMSModel.FK__Approves__Issue___619B8048" ManuallyRouted="false" />
+        <AssociationConnector Association="LMSModel.FK__Issues__Id__5BE2A6F2" ManuallyRouted="false" />
+        <AssociationConnector Association="LMSModel.FK__Reutrn__Issue_Id__6754599E" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="LMSModel.monitor" Width="1.5" PointX="5.75" PointY="6.625" />
+        <AssociationConnector Association="LMSModel.FK__monitor__Admin_I__6C190EBB" />
+        <AssociationConnector Association="LMSModel.FK__monitor__Member___6D0D32F4" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
