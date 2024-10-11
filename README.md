@@ -1,4 +1,4 @@
-# 3.2-SD
+# Library Management System 
 Our project is library management system. Here a user can issue books online and the librarian can control the books issued, 
 taken and returned through librarians dashboard. New user has to register. Existing users can login. Users or the library 
 members can issue books online but they have a maximum limit of three unreturned issued books at a time. If the limit crosses 
